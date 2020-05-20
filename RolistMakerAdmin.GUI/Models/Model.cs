@@ -187,6 +187,8 @@ namespace RolistMakerAdmin.GUI
 
         public int MusiqueId { get; set; }
         public Musique Musique { get; set; }
+
+        public int Ordre { get; set; }
     }
     public class PersonnageObjet
     {

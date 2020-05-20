@@ -25,6 +25,7 @@ namespace RolistMakerAdmin.GUI.Controllers
 
         #region ACCESSEURS
         public static int IDGame { get; set; }
+        private static Game myGame { get; set; }
 
         public static EncyclopedieController GetInstance
         {
@@ -59,13 +60,7 @@ namespace RolistMakerAdmin.GUI.Controllers
             string sPath =  Path.Combine(Environment.CurrentDirectory, game.Titre.Trim());
             return sPath;
         }
-        private void AddImageFile(string sOldPath, ref Image image )
-        {
-            string sPathGame = GetGameFolder();
-            string sNewPath = Path.Combine(sPathGame, image.Type.ToString(), image.Nom.Trim());
-            File.Copy(sOldPath, sNewPath, true);
-            image.Lien = sNewPath;
-        }
+        
        
         
 
@@ -113,6 +108,7 @@ namespace RolistMakerAdmin.GUI.Controllers
                     }
                     db.SaveChanges();
                     IDGame = game.GameId;
+                    myGame = game;
                     return game.GameId;
                 }
                 else
@@ -457,6 +453,13 @@ namespace RolistMakerAdmin.GUI.Controllers
             else
                 throw new Exception("Aucune image n'a été sélectionnée, impossible de la supprimer");
         }
+        private void AddImageFile(string sOldPath, ref Image image)
+        {
+            string sPathGame = GetGameFolder();
+            string sNewPath = Path.Combine(sPathGame, "Ressources","Images", image.Type.ToString(), image.Nom.Trim());
+            File.Copy(sOldPath, sNewPath, true);
+            image.Lien = sNewPath;
+        }
 
         #endregion
 
@@ -473,7 +476,109 @@ namespace RolistMakerAdmin.GUI.Controllers
         }
         public void AddPlaylist(int? idPlaylist, string sNom, string sDescription)
         {
-            
+            Playlist playlist = new Playlist();
+            if (idPlaylist != 0 && idPlaylist != null)
+                playlist = _sqlModels.GetPlaylist(idPlaylist);
+            playlist.Game = myGame;
+            playlist.Nom = sNom.Trim();
+            playlist.Description = sDescription.Trim();
+            _sqlModels.SavePlaylist(playlist);
+
+        }
+
+
+        #endregion
+
+        #region MUSIQUE
+
+        public List<Musique> GetAllMusiques()
+        {
+            return _sqlModels.GetAllMusiques(IDGame);
+        }
+
+
+        public void AddMusique(int? idMusique, string sNom, string sLienFrom)
+        {
+            try
+            {
+                if (sNom.Trim() != string.Empty && sLienFrom.Trim() != string.Empty)
+                {
+                   
+                    Musique musique = new Musique();
+                    if (idMusique != 0 && idMusique != null)
+                        musique = _sqlModels.GetMusique(idMusique);
+
+                    musique.Nom = sNom.Trim();
+                    musique.Game = myGame;
+                    AddMusiqueFile(sLienFrom, ref musique);
+                    _sqlModels.SaveMusique(musique);
+                }
+                else
+                    throw new Exception("Les informations nécessaires n'ont pas été renseignées, impossible de continuer");
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Impossible d'enregister la musique", ex);
+            }
+        }
+        /// <summary>
+        /// Supprimer la musique de la base de données
+        /// </summary>
+        /// <param name="idMusique"></param>
+        /// <param name="bDeleteFile">true si vous désirez supprimer le fichier</param>
+        public void DeleteMusique(int? idMusique, bool bDeleteFile)
+        {
+            if (idMusique != 0 && idMusique != null)
+            {
+                Musique Musique = new Musique();
+                Musique = db.Musiques.FirstOrDefault(d => d.MusiqueId == idMusique);
+                if (bDeleteFile)
+                    File.Delete(Musique.Lien);
+                db.Musiques.Remove(Musique);
+            }
+            else
+                throw new Exception("Aucune musique n'a été sélectionnée, impossible de la supprimer");
+        }
+        private void AddMusiqueFile(string sOldPath, ref Musique musique)
+        {
+            string sPathGame = GetGameFolder();
+            string sNewPath = Path.Combine(sPathGame, "Ressources","Musiques", musique.Nom.Trim());
+            File.Copy(sOldPath, sNewPath, true);
+            musique.Lien = sNewPath;
+        }
+
+        #endregion
+
+        #region OBJET / TYPE OBJET
+
+        public List<TypeObjet> GetAllTypeObjet()
+        {
+            return _sqlModels.GetAllTypeObjets(IDGame);
+        }
+        public TypeObjet GetTypeObjet(int idTypeObjet)
+        {
+            return _sqlModels.GetTypeObjet(idTypeObjet);
+        }
+        public void SaveTypeObjet(int? idTypeObjet, string sNom, int? idImage )
+        {
+            if (sNom.Trim() != string.Empty)
+            {
+                TypeObjet typeObjet = new TypeObjet();
+                if (idTypeObjet != 0 && idTypeObjet != null)
+                    typeObjet = _sqlModels.GetTypeObjet(idTypeObjet);
+                if (idImage != 0 && idImage != null)
+                {
+                    Image image = _sqlModels.GetImage(idImage);
+                    typeObjet.Image = image;
+                }
+                typeObjet.Nom = sNom.Trim();
+                typeObjet.Game = myGame;
+                _sqlModels.SaveTypeObjet(typeObjet);
+            }
+            else
+                throw new Exception("Veuillez indiquer le nom de type d'objet");
+
         }
 
         #endregion
