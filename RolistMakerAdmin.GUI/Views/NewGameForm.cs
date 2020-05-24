@@ -21,8 +21,8 @@ namespace RolistMakerAdmin.GUI
 
         private DataTable dtRaces;
         private DataTable dtClasses;
-        private DataTable dtCompetences;
-        private DataTable dtStatistiques;
+       // private DataTable dtCompetences;
+        //private DataTable dtStatistiques;
         private DataTable dtSexes;
 
         private string sIdRace = string.Empty;

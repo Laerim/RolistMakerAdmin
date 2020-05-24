@@ -146,6 +146,7 @@
       <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
@@ -181,6 +182,24 @@
   <ItemGroup>
     <Compile Include="Controllers\EncyclopedieController.cs" />
     <Compile Include="Models\SQL_Models.cs" />
+    <Compile Include="Views\AdminGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AdminGame.Designer.cs">
+      <DependentUpon>AdminGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AboutGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AboutGameForm.Designer.cs">
+      <DependentUpon>AboutGameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IntermediateForms\NotificationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\IntermediateForms\NotificationForm.Designer.cs">
+      <DependentUpon>NotificationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoadGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,6 +226,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Views\AdminGame.resx">
+      <DependentUpon>AdminGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AboutGameForm.resx">
+      <DependentUpon>AboutGameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\IntermediateForms\NotificationForm.resx">
+      <DependentUpon>NotificationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\LoadGameForm.resx">
       <DependentUpon>LoadGameForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -224,6 +252,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -239,7 +268,21 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\success.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\warning.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

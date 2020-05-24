@@ -102,7 +102,7 @@ namespace RolistMakerAdmin.GUI.Controllers
                     game.Description = sDescription.Trim();
                     if (id == 0 || id == null)
                     {
-                        game.GameId = 1;
+                        
                         db.Games.Add(game);
                         CreateFolders(sTitre.Trim());
                     }
@@ -112,11 +112,11 @@ namespace RolistMakerAdmin.GUI.Controllers
                     return game.GameId;
                 }
                 else
-                    throw new Exception("Impossible de continuer. Indiquer un titre à votre jeu");
+                    throw new Exception("Indiquer un titre à votre jeu");
             }
             catch (Exception ex)
             {
-                throw new Exception("Impossible d'enregistrer le jeu : ", ex);
+                throw new Exception("Impossible d'enregistrer le jeu :\n"+ ex.Message);
             }
         }
         public void SetParamPersonnages(bool bRace, bool bClasse, bool bCompetence, bool bStatistique)

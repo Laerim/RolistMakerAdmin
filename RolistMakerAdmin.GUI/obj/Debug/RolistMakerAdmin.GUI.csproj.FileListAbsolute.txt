@@ -172,8 +172,11 @@ C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\bin\Deb
 C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.csprojAssemblyReference.cache
 C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.exe.config
-C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.LoadGameForm.resources
-C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.MainForm.resources
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.Views.AdminGame.resources
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.Views.AboutGameForm.resources
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.Views.IntermediateForms.NotificationForm.resources
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.Views.LoadGameForm.resources
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.Views.MainForm.resources
 C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.NewGameForm.resources
 C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.Properties.Resources.resources
 C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.csproj.GenerateResource.cache

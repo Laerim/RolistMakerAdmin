@@ -152,6 +152,14 @@ namespace RolistMakerAdmin.GUI
 
 
     }
+    public class De
+    {
+        public int DeId { get; set; }
+        public string Nom { get; set; }
+        public string Description { get; set; }
+        public int NbFace { get; set; }
+
+    }
     public class Musique
     {
         public int MusiqueId { get; set; }

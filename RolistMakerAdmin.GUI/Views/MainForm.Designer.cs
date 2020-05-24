@@ -1,4 +1,4 @@
-﻿namespace RolistMakerAdmin.GUI
+﻿namespace RolistMakerAdmin.GUI.Views
 {
     partial class MainForm
     {

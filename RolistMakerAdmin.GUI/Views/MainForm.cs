@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RolistMakerAdmin.GUI
+namespace RolistMakerAdmin.GUI.Views
 {
     public partial class MainForm : MaterialForm //Form
     {
@@ -45,8 +45,12 @@ namespace RolistMakerAdmin.GUI
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            this.Hide();
             LoadGameForm form = new LoadGameForm();
-            form.ShowDialog();
+            form.Closed += (s, args) => this.Close();
+            form.Show();
+
+            
         }
     }
 }
