@@ -213,6 +213,7 @@ namespace RolistMakerAdmin.GUI
         public int ClasseId { get; set; }
         public Classe Classe { get; set; }
 
+
         public int CompetenceId { get; set; }
         public Competence Competence { get; set; }
     }

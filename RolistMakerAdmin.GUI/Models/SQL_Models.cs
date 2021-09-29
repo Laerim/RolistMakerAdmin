@@ -34,6 +34,7 @@ namespace RolistMakerAdmin.GUI.Models
             }
         }
         #endregion
+
         #region GAME
 
         public Game GetGame(int? idGame)
@@ -43,6 +44,53 @@ namespace RolistMakerAdmin.GUI.Models
             return game;
         }
 
+
+
+        #endregion
+
+        #region SEXE
+
+        public List<Sexe> GetAllSexes(int idGame)
+        {
+            var Sexes = db.Sexes
+                .Where(c => c.Game.GameId == idGame)
+                .OrderBy(c => c.Nom).ToList();
+            return Sexes;
+        }
+        public Sexe GetSexe(int? idSexe)
+        {
+            try
+            {
+                Sexe Sexe = new Sexe();
+                Sexe = db.Sexes.FirstOrDefault(m => m.SexeId == idSexe);
+                return Sexe;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Impossible de récupérer ce sexe", ex);
+            }
+        }
+        public void SaveSexe(Sexe Sexe, int idGame)
+        {
+            try
+            {
+                Game game = db.Games.FirstOrDefault(m => m.GameId == idGame);
+                Sexe.Game = game;
+                if (Sexe.SexeId == 0)
+                    db.Sexes.Add(Sexe);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Impossible de sauvegarder le sexe", ex);
+            }
+        }
+        public void DeleteSexe(Sexe Sexe)
+        {
+            db.Sexes.Remove(Sexe);
+            db.SaveChanges();
+        }
         #endregion
 
         #region IMAGE
@@ -81,6 +129,7 @@ namespace RolistMakerAdmin.GUI.Models
         public void DeletePlaylist(Playlist playlist)
         {
             db.Playlists.Remove(playlist);
+            db.SaveChanges();
         }
 
 
@@ -109,10 +158,12 @@ namespace RolistMakerAdmin.GUI.Models
                 throw new Exception("Impossible de récupérer cette musique", ex);
             }
         }
-        public void SaveMusique(Musique musique)
+        public void SaveMusique(Musique musique, int idGame)
         {
             try
             {
+                Game game = GetGame(idGame);
+                musique.Game = game;
                 if (musique.MusiqueId == 0)
                     db.Musiques.Add(musique);
                 db.SaveChanges();
@@ -122,9 +173,12 @@ namespace RolistMakerAdmin.GUI.Models
                 throw new Exception("Impossible de sauvegarder la musique", ex);
             }
         }
-        public void DeleteMusique(Musique musique)
+        public void DeleteMusique(Musique musique, int idGame)
         {
+            Game game = GetGame(idGame);
+            musique.Game = game;
             db.Musiques.Remove(musique);
+            db.SaveChanges();
         }
 
         #endregion
@@ -169,6 +223,7 @@ namespace RolistMakerAdmin.GUI.Models
         public void DeleteTypeObjet(TypeObjet TypeObjet)
         {
             db.TypeObjets.Remove(TypeObjet);
+            db.SaveChanges();
         }
 
         #endregion

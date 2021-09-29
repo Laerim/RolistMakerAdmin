@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using RolistMakerAdmin.GUI.Controllers;
-
+using RolistMakerAdmin.GUI.Views.IntermediateForms;
 
 namespace RolistMakerAdmin.GUI.Views
 {
@@ -91,6 +91,7 @@ namespace RolistMakerAdmin.GUI.Views
 
         private void btnParamPersonnage_Click(object sender, EventArgs e)
         {
+            OpenChildForm(new ParamPlayersForm());
             HideSubMenu();
         }
 
@@ -101,6 +102,7 @@ namespace RolistMakerAdmin.GUI.Views
 
         private void btnUseMusique_Click(object sender, EventArgs e)
         {
+            OpenChildForm(new ParamMusiqueForm());
             HideSubMenu();
         }
 

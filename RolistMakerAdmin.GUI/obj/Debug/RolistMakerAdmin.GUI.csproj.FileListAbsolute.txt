@@ -184,3 +184,14 @@ C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Deb
 C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.csproj.CopyComplete
 C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.exe
 C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.pdb
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.Views.IntermediateForms.ParamPlayersForm.resources
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\Interop.MediaPlayer.dll
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.csproj.ResolveComReference.cache
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.Views.IntermediateForms.ParamMusiqueForm.resources
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.Views.IntermediateForms.TEST1.resources
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.Views.IntermediateForms.CustomMessageBox.resources
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\bin\Debug\Interop.WMPLib.dll
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\bin\Debug\AxInterop.WMPLib.dll
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\Interop.WMPLib.dll
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\AxInterop.WMPLib.dll
+C:\Users\Clem\Documents\DEV\CSharp\RolistMakerAdmin\RolistMakerAdmin.GUI\obj\Debug\RolistMakerAdmin.GUI.Views.IntermediateForms.PlaylistForm.resources

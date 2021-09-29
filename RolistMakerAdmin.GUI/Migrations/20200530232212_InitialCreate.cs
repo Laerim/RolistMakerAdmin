@@ -178,6 +178,8 @@ namespace RolistMakerAdmin.GUI.Migrations
                     StatistiqueId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nom = table.Column<string>(nullable: true),
+                    Max = table.Column<int>(nullable: false),
+                    Min = table.Column<int>(nullable: false),
                     Active = table.Column<bool>(nullable: false),
                     GameId = table.Column<int>(nullable: true)
                 },
@@ -343,7 +345,8 @@ namespace RolistMakerAdmin.GUI.Migrations
                 columns: table => new
                 {
                     LieuId = table.Column<int>(nullable: false),
-                    MusiqueId = table.Column<int>(nullable: false)
+                    MusiqueId = table.Column<int>(nullable: false),
+                    Ordre = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -411,6 +414,30 @@ namespace RolistMakerAdmin.GUI.Migrations
                         column: x => x.PersonnageId,
                         principalTable: "Personnages",
                         principalColumn: "PersonnageId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonnageRace",
+                columns: table => new
+                {
+                    PersonnageId = table.Column<int>(nullable: false),
+                    RaceId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonnageRace", x => new { x.PersonnageId, x.RaceId });
+                    table.ForeignKey(
+                        name: "FK_PersonnageRace_Personnages_PersonnageId",
+                        column: x => x.PersonnageId,
+                        principalTable: "Personnages",
+                        principalColumn: "PersonnageId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PersonnageRace_Races_RaceId",
+                        column: x => x.RaceId,
+                        principalTable: "Races",
+                        principalColumn: "RaceId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -555,6 +582,11 @@ namespace RolistMakerAdmin.GUI.Migrations
                 column: "ObjetId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PersonnageRace_RaceId",
+                table: "PersonnageRace",
+                column: "RaceId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Personnages_ClasseId",
                 table: "Personnages",
                 column: "ClasseId");
@@ -631,6 +663,9 @@ namespace RolistMakerAdmin.GUI.Migrations
 
             migrationBuilder.DropTable(
                 name: "PersonnageObjets");
+
+            migrationBuilder.DropTable(
+                name: "PersonnageRace");
 
             migrationBuilder.DropTable(
                 name: "PersonnageStatistiques");

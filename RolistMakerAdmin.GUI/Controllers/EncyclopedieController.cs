@@ -89,26 +89,36 @@ namespace RolistMakerAdmin.GUI.Controllers
         }
         public int SaveGame(int? id, string sTitre, string sDescription)
         {
+            bool bNewGame = false;
             try
             {
+                if (id == 0 || id == null)
+                    bNewGame = true;
                 if (sTitre.Trim() != string.Empty)
                 {
                     Game game = new Game();
-                    if (id != 0 && id != null)
+                    if (!bNewGame)
                     {
                         game = db.Games.FirstOrDefault(d => d.GameId == id);
                     }
                     game.Titre = sTitre.Trim();
                     game.Description = sDescription.Trim();
-                    if (id == 0 || id == null)
+                    if (bNewGame)
                     {
                         
                         db.Games.Add(game);
-                        CreateFolders(sTitre.Trim());
+                        CreateFolders(sTitre.Trim().Replace("'"," "));
                     }
                     db.SaveChanges();
+                    
                     IDGame = game.GameId;
                     myGame = game;
+                    if(bNewGame)
+                    {
+                        AddSexe(0, "Homme");
+                        AddSexe(0, "Femme");
+                        AddSexe(0, "Non binaire");
+                    }
                     return game.GameId;
                 }
                 else
@@ -135,66 +145,128 @@ namespace RolistMakerAdmin.GUI.Controllers
                 throw new Exception("Impossible d'enregistrer les paramétrage : ", ex);
             }
         }
-#endregion
+        #endregion
 
         #region SEXE
+
         public List<Sexe> GetAllSexes()
         {
-            var sexes = db.Sexes
-                .Where(b=> b.Game.GameId == IDGame)
-                      .OrderBy(b => b.SexeId).ToList();
-            return sexes;
+            return _sqlModels.GetAllSexes(IDGame);
         }
-        public Sexe GetSexeById(int idSexe)
+
+
+        public void AddSexe(int? idSexe, string sNom)
         {
             try
             {
-                if (idSexe != 0)
+                if (sNom.Trim() != string.Empty)
                 {
-                    Sexe sexe = db.Sexes.FirstOrDefault(d => d.SexeId == idSexe);
-                    return sexe;
+
+                    Sexe Sexe = new Sexe();
+                    if (idSexe != 0 && idSexe != null)
+                        Sexe = _sqlModels.GetSexe(idSexe);
+
+                    Sexe.Nom = sNom.Trim();
+                    Sexe.Game = myGame;
+                   
+                     _sqlModels.SaveSexe(Sexe, IDGame);
                 }
                 else
-                    throw new Exception("Veuillez sélectionner un sexe !");
+                    throw new Exception("Les informations nécessaires n'ont pas été renseignées, impossible de continuer");
+            }
+            catch (Exception ex)
+            {
 
+                throw new Exception("Impossible d'enregister la Sexe", ex);
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Impossible de récupérer le sexe\n : ", ex);
-            }
-           
         }
-        public void AddSexe(int? idSexe, string sNom )
+        /// <summary>
+        /// Supprimer la Sexe de la base de données
+        /// </summary>
+        /// <param name="idSexe"></param>
+        /// <param name="bDeleteFile">true si vous désirez supprimer le fichier</param>
+        public void DeleteSexe(int? idSexe)
         {
-            if (sNom.Trim() != string.Empty)
+            if (idSexe != 0 && idSexe != null)
             {
-                Game game = db.Games.FirstOrDefault(d => d.GameId == IDGame);
-                Sexe sexe = new Sexe();
-                if (idSexe != 0 && idSexe != null)
-                    sexe = db.Sexes.FirstOrDefault(d => d.SexeId == idSexe);
-                
-                sexe.Nom = sNom.Trim();
-                if (idSexe == 0 || idSexe == null)
-                {
-                    sexe.Game = game;
-                    db.Sexes.Add(sexe);
-                }
-                db.SaveChanges();
+                Sexe Sexe = new Sexe();
+                Sexe = _sqlModels.GetSexe(idSexe);
+                _sqlModels.DeleteSexe(Sexe);
             }
+            else
+                throw new Exception("Aucune sexe n'a été sélectionnée, impossible de le supprimer");
         }
-        public void DeleteSexe(int idSexe)
-        {
-            try
-            {
-                Sexe sexe = GetSexeById(idSexe);
-                db.Sexes.Remove(sexe);
-                db.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Impossible de supprimer le sexe\n : ", ex);
-            }
-        }
+
+        //public List<Sexe> GetAllSexes()
+        //{
+        //    var sexes = db.Sexes
+        //        .Where(b=> b.Game.GameId == IDGame)
+        //              .OrderBy(b => b.SexeId).ToList();
+        //    return sexes;
+        //}
+        //public Sexe GetSexeById(int idSexe)
+        //{
+        //    try
+        //    {
+        //        if (idSexe != 0)
+        //        {
+        //            Sexe sexe = db.Sexes.FirstOrDefault(d => d.SexeId == idSexe);
+        //            return sexe;
+        //        }
+        //        else
+        //            throw new Exception("Veuillez sélectionner un sexe !");
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Impossible de récupérer le sexe\n : ", ex);
+        //    }
+
+        //}
+        //public void AddSexe(int? idSexe, string sNom )
+        //{
+        //    try
+        //    {
+        //        if (sNom.Trim() == string.Empty)
+        //            throw new Exception("Veuillez donner un nom à votre \"sexe\"");
+
+        //        Game game = db.Games.FirstOrDefault(d => d.GameId == IDGame);
+        //        Sexe sexe = new Sexe();
+        //        if (idSexe != 0 && idSexe != null)
+        //            sexe = db.Sexes.FirstOrDefault(d => d.SexeId == idSexe);
+
+        //        sexe.Nom = sNom.Trim();
+        //        if (idSexe == 0 || idSexe == null)
+        //        {
+        //            sexe.Game = game;
+        //            db.Sexes.Add(sexe);
+        //        }
+        //        db.SaveChanges();
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw new Exception("Impossible d'enregistrer le sexe :\n" + ex.Message) ;
+        //    }
+
+
+        //}
+        //public void DeleteSexe(int idSexe)
+        //{
+        //    try
+        //    {
+        //        if (idSexe == 0)
+        //            throw new Exception("Vous n'avez rien sélectionné");
+        //        Sexe sexe = GetSexeById(idSexe);
+        //        db.Sexes.Remove(sexe);
+        //        db.SaveChanges();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Impossible de supprimer le sexe\n : ", ex);
+        //    }
+        //}
         #endregion
 
         #region RACE
@@ -508,10 +580,10 @@ namespace RolistMakerAdmin.GUI.Controllers
                     if (idMusique != 0 && idMusique != null)
                         musique = _sqlModels.GetMusique(idMusique);
 
-                    musique.Nom = sNom.Trim();
+                    musique.Nom = sNom.Trim()+Path.GetExtension(sLienFrom);
                     musique.Game = myGame;
                     AddMusiqueFile(sLienFrom, ref musique);
-                    _sqlModels.SaveMusique(musique);
+                    _sqlModels.SaveMusique(musique, IDGame);
                 }
                 else
                     throw new Exception("Les informations nécessaires n'ont pas été renseignées, impossible de continuer");
@@ -529,16 +601,25 @@ namespace RolistMakerAdmin.GUI.Controllers
         /// <param name="bDeleteFile">true si vous désirez supprimer le fichier</param>
         public void DeleteMusique(int? idMusique, bool bDeleteFile)
         {
-            if (idMusique != 0 && idMusique != null)
+            try
             {
-                Musique Musique = new Musique();
-                Musique = db.Musiques.FirstOrDefault(d => d.MusiqueId == idMusique);
-                if (bDeleteFile)
-                    File.Delete(Musique.Lien);
-                db.Musiques.Remove(Musique);
+                if (idMusique != 0 && idMusique != null)
+                {
+                    Musique Musique = new Musique();
+                    Musique = db.Musiques.FirstOrDefault(d => d.MusiqueId == idMusique);
+                    if (bDeleteFile)
+                        File.Delete(Musique.Lien);
+                    db.Musiques.Remove(Musique);
+                    db.SaveChanges();
+                }
+                else
+                    throw new Exception("Aucune musique n'a été sélectionnée, impossible de la supprimer");
             }
-            else
-                throw new Exception("Aucune musique n'a été sélectionnée, impossible de la supprimer");
+            catch (Exception ex)
+            {
+                throw new Exception("Impossible de supprimer la musique :\n "+ex.Message, ex);
+            }
+           
         }
         private void AddMusiqueFile(string sOldPath, ref Musique musique)
         {

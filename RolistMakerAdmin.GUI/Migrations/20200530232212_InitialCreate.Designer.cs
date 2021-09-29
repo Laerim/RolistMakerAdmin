@@ -9,7 +9,7 @@ using RolistMakerAdmin.GUI;
 namespace RolistMakerAdmin.GUI.Migrations
 {
     [DbContext(typeof(RolistMakerContext))]
-    [Migration("20200511021246_InitialCreate")]
+    [Migration("20200530232212_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,6 +166,9 @@ namespace RolistMakerAdmin.GUI.Migrations
                     b.Property<int>("MusiqueId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Ordre")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("LieuId", "MusiqueId");
 
                     b.HasIndex("MusiqueId");
@@ -307,6 +310,21 @@ namespace RolistMakerAdmin.GUI.Migrations
                     b.ToTable("PersonnageObjets");
                 });
 
+            modelBuilder.Entity("RolistMakerAdmin.GUI.PersonnageRace", b =>
+                {
+                    b.Property<int>("PersonnageId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RaceId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("PersonnageId", "RaceId");
+
+                    b.HasIndex("RaceId");
+
+                    b.ToTable("PersonnageRace");
+                });
+
             modelBuilder.Entity("RolistMakerAdmin.GUI.PersonnageStatistique", b =>
                 {
                     b.Property<int>("PersonnageId")
@@ -401,6 +419,12 @@ namespace RolistMakerAdmin.GUI.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("GameId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Max")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Min")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Nom")
@@ -595,6 +619,21 @@ namespace RolistMakerAdmin.GUI.Migrations
                     b.HasOne("RolistMakerAdmin.GUI.Personnage", "Personnage")
                         .WithMany("PersonnageObjets")
                         .HasForeignKey("PersonnageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RolistMakerAdmin.GUI.PersonnageRace", b =>
+                {
+                    b.HasOne("RolistMakerAdmin.GUI.Personnage", "Personnage")
+                        .WithMany("PersonnageRaces")
+                        .HasForeignKey("PersonnageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RolistMakerAdmin.GUI.Race", "Race")
+                        .WithMany()
+                        .HasForeignKey("RaceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
